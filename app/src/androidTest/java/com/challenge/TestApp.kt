@@ -1,6 +1,3 @@
-package com.challenge;
+package com.challenge
 
-class TestApp : BaseApp(){
-
-
-}
+class TestApp : BaseApp()

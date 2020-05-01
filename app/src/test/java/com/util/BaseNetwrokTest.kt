@@ -2,9 +2,9 @@ package com.util
 
 import com.squareup.okhttp.mockwebserver.MockResponse
 import com.squareup.okhttp.mockwebserver.MockWebServer
+import java.io.File
 import org.junit.After
 import org.junit.Before
-import java.io.File
 
 abstract class BaseNetwrokTest {
 
@@ -17,18 +17,15 @@ abstract class BaseNetwrokTest {
         }
     }
 
-
-
     fun stopMockServer() {
         if (isMockServerEnable())
             mockServer.shutdown()
     }
 
     @Before
-    open fun setup(){
+    open fun setup() {
         startMockServer()
     }
-
 
     open fun mockHttpresponse(filename: String, responseCode: Int) = mockServer.enqueue(
         MockResponse()
