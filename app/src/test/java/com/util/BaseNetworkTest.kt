@@ -6,7 +6,7 @@ import java.io.File
 import org.junit.After
 import org.junit.Before
 
-abstract class BaseNetwrokTest {
+abstract class BaseNetworkTest {
 
     lateinit var mockServer: MockWebServer
 

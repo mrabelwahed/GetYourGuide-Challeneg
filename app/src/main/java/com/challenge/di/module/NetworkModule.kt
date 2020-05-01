@@ -1,21 +1,19 @@
 package com.challenge.di.module
 
 import com.challenge.AppConst.TIMEOUT_REQUEST
-
-import com.challenge.di.scope.AppScope
 import com.challenge.data.network.apis.ReviewApi
+import com.challenge.di.scope.AppScope
 import dagger.Module
 import dagger.Provides
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-
 
 @Module
- open class NetworkModule(var baseUrl:String) {
+open class NetworkModule(var baseUrl: String) {
     @AppScope
     @Provides
     fun provideHttpLogging(): HttpLoggingInterceptor {
@@ -23,7 +21,6 @@ import java.util.concurrent.TimeUnit
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return loggingInterceptor
     }
-
 
     @AppScope
     @Provides
@@ -37,14 +34,13 @@ import java.util.concurrent.TimeUnit
 
     @AppScope
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient) =
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder =
         Retrofit.Builder().client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
-
     @AppScope
     @Provides
-     fun provideFeedService(builder: Retrofit.Builder) =
+    fun provideFeedService(builder: Retrofit.Builder): ReviewApi =
         builder.baseUrl(baseUrl).build().create(ReviewApi::class.java)
 }

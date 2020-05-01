@@ -8,10 +8,9 @@ import com.challenge.ui.dto.QueryDTO
 import com.challenge.ui.mapper.ReviewModelMapper
 import com.challenge.ui.viewstate.ServerDataState
 import io.reactivex.android.schedulers.AndroidSchedulers
-import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
-
+import retrofit2.HttpException
 
 class ReviewListViewModel @Inject constructor(private val getGifListUseCase: GetReviewListUseCase) :
     BaseViewModel() {
@@ -29,26 +28,23 @@ class ReviewListViewModel @Inject constructor(private val getGifListUseCase: Get
         }
     }
 
-
     fun loadNextPage() {
-        val disposable =   getGifListUseCase.execute(QueryDTO(lastOffset))
+        val disposable = getGifListUseCase.execute(QueryDTO(lastOffset))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { res -> viewState.value = ServerDataState.Success(ReviewModelMapper.transform(res)) },
+                { res ->
+                    viewState.value = ServerDataState.Success(ReviewModelMapper.transform(res))
+                },
                 { error -> viewState.value = setFailure(error) }
             )
         compositeDisposable.add(disposable)
     }
 
-    fun incrementOffset(){
+    fun incrementOffset() {
         this.lastOffset += 20
     }
 
-
-
-    fun setNewQuery(){
-        this.lastOffset =0L
+    fun setNewQuery() {
+        this.lastOffset = 0L
     }
-
-
 }

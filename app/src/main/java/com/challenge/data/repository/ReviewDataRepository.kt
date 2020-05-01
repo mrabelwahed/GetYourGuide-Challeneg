@@ -8,12 +8,10 @@ import com.challenge.domain.repository.ReviewRepository
 import com.challenge.ui.dto.QueryDTO
 import io.reactivex.Flowable
 
-class ReviewDataRepository (private val reviewAPI: ReviewApi) : ReviewRepository {
+class ReviewDataRepository(private val reviewAPI: ReviewApi) : ReviewRepository {
 
     override fun getReviewList(queryDTO: QueryDTO): Flowable<List<Review>> {
-        return reviewAPI.getReviews(LIMIT,queryDTO.offset)
+        return reviewAPI.getReviews(LIMIT, queryDTO.offset)
             .map { res -> ReviewListMapper.transform(res.reviews) }
     }
-
-
 }

@@ -4,8 +4,9 @@ import com.challenge.data.network.apis.ReviewApi
 import com.challenge.data.network.response.ReviewsResponse
 import com.rules.RxSchedulerRule
 import com.squareup.okhttp.mockwebserver.MockResponse
-import com.util.BaseNetwrokTest
+import com.util.BaseNetworkTest
 import io.reactivex.subscribers.TestSubscriber
+import java.net.HttpURLConnection
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -15,9 +16,8 @@ import org.mockito.junit.MockitoJUnit
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.HttpURLConnection
 
-class ReviewDataRepositoryTest : BaseNetwrokTest() {
+class ReviewDataRepositoryTest : BaseNetworkTest() {
 
     @Rule
     @JvmField
@@ -47,17 +47,15 @@ class ReviewDataRepositoryTest : BaseNetwrokTest() {
 
     override fun isMockServerEnable() = true
 
-
     @Test
     fun `repository is ready for test`() {
         assertNotNull(repository)
     }
 
-
     @Test
     fun ` search gif api should return list of 20 gifs per page `() {
         mockHttpresponse("get_reviews.json", HttpURLConnection.HTTP_OK)
-        reviewApi.getReviews( 20, 0).subscribe(testSubscriber)
+        reviewApi.getReviews(20, 0).subscribe(testSubscriber)
         testSubscriber.assertNoErrors().assertComplete()
         val response = testSubscriber.values()[0]
         val returnedSize = response.reviews.size

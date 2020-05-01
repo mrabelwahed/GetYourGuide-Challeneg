@@ -3,8 +3,8 @@ package com.challenge.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-abstract  class BaseActivity : AppCompatActivity() {
-    abstract  fun getLayoutById(): Int
+abstract class BaseActivity : AppCompatActivity() {
+    abstract fun getLayoutById(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -12,7 +12,5 @@ abstract  class BaseActivity : AppCompatActivity() {
         initUI()
     }
 
-
     abstract fun initUI()
-
 }

@@ -11,6 +11,7 @@ import com.challenge.ui.viewstate.ServerDataState
 import com.rules.RxSchedulerRule
 import com.util.mock
 import io.reactivex.Flowable
+import java.net.UnknownHostException
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -18,13 +19,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
+import org.mockito.Mockito.verifyNoMoreInteractions
 import org.mockito.junit.MockitoJUnit
-import retrofit2.HttpException
-import java.net.UnknownHostException
 
-
-class GifListViewModelTest {
+class ReviewListViewModelTest {
     @Rule
     @JvmField
     var mockitoRule = MockitoJUnit.rule()!!
@@ -60,56 +61,50 @@ class GifListViewModelTest {
 
     @Test
     fun `should first page of gifs are loaded successfully`() {
-        //Given
-        val dummyQuery = QueryDTO( 0)
+        // Given
+        val dummyQuery = QueryDTO(0)
         `when`(reviewRepository.getReviewList(dummyQuery)).thenReturn(Flowable.just(createGifList()))
-        //when
+        // when
         reviewRepository.getReviewList(dummyQuery)
-        //then
+        // then
         verify(reviewRepository).getReviewList(dummyQuery)
         verifyNoMoreInteractions(reviewRepository)
     }
 
-
     @Test
     fun `search gif should return lis of gifs`() {
-        //given
-        val dummyQuery = QueryDTO( 0)
+        // given
+        val dummyQuery = QueryDTO(0)
         `when`(reviewRepository.getReviewList(dummyQuery)).thenReturn(Flowable.just(createGifList()))
-        //when
+        // when
         reviewRepository.getReviewList(dummyQuery)
         gifListViewModel.viewState.value = ServerDataState.Success(Flowable.just(createGifList()))
-        //then
+        // then
         val captor = ArgumentCaptor.forClass(ServerDataState::class.java)
         captor.run {
             verify(observer, times(1)).onChanged(capture())
             assertEquals(gifListViewModel.viewState.value, value)
         }
-
     }
-
 
     @Test
     fun `no internet error case`() {
-        //given
+        // given
         val dummyQuery = QueryDTO(0)
         `when`(reviewRepository.getReviewList(dummyQuery))
             .thenReturn(Flowable.error(UnknownHostException()))
-        //when
+        // when
         reviewRepository.getReviewList(dummyQuery)
         gifListViewModel.viewState.value = ServerDataState.Error(Failure.NetworkConnection)
-        //then
+        // then
         val captor = ArgumentCaptor.forClass(ServerDataState::class.java)
         captor.run {
             verify(observer, times(1)).onChanged(capture())
             assertEquals(value, ServerDataState.Error(Failure.NetworkConnection))
         }
-
     }
 
 //
-
-
 
     private fun createGifList(): List<Review> {
         val modelList = mutableListOf<Review>()
@@ -120,15 +115,6 @@ class GifListViewModelTest {
     }
 
     private fun createDummyGif(x: Int): Review {
-        return Review(
-            "$x",
-            "t${x}",
-            "country${x}",
-            "message${x}",
-             x,
-            "$x"
-        )
+        return Review("$x", "t$x", "country$x", "message$x", x, "$x")
     }
-
-
 }

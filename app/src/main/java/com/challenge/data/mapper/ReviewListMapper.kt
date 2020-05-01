@@ -5,18 +5,17 @@ import com.challenge.domain.model.Review
 
 object ReviewListMapper {
     private fun transform(res: ReviewRes): Review {
-      if (res.message.isEmpty()){
-          val consMessage = "No Message Yet"
-          return Review(
-              res.id,
-              res.author.fullName,
-              res.author.country,
-              consMessage,
-              res.rating,
-              res.travelerType
-          )
-
-      }
+        if (res.message.isEmpty()) {
+            val consMessage = "No Message Yet"
+            return Review(
+                res.id,
+                res.author.fullName,
+                res.author.country,
+                consMessage,
+                res.rating,
+                res.travelerType
+            )
+        }
 
         return Review(
             res.id,

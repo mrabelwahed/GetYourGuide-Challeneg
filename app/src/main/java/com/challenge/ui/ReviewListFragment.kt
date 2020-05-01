@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.challenge.AppConst.keys.REVIEW_ITEM
+import com.challenge.AppConst.Keys.REVIEW_ITEM
 import com.challenge.BaseApp
 import com.challenge.R
 import com.challenge.data.exceptions.Failure
@@ -15,11 +15,10 @@ import com.challenge.ui.model.ReviewModel
 import com.challenge.ui.viewmodel.ReviewListViewModel
 import com.challenge.ui.viewmodel.ViewModelFactory
 import com.challenge.ui.viewstate.ServerDataState
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.content_empty.*
 import kotlinx.android.synthetic.main.content_error.*
 import kotlinx.android.synthetic.main.fragment_review_list.*
-import javax.inject.Inject
-
 
 class ReviewListFragment : BaseFragment(), OnClickListener {
     private val reviewDetailsFragment = ReviewDetailsFragment()
@@ -28,14 +27,17 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
     private var lastVisibleItem = 0
     private var loading = false
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val VISIBLE_THRESHOLD = 1
+    companion object {
+        const val VISIBLE_THRESHOLD = 1
+    }
+
     @Inject
     lateinit var reviewListAdapter: ReviewListAdapter
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-
-    //private lateinit var searchView: SearchView
+    // private lateinit var searchView: SearchView
 
     private var newQueryIsFired = false
 
@@ -47,14 +49,11 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
             ViewModelProvider(this, viewModelFactory)[ReviewListViewModel::class.java]
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         reviewListViewModel.loadNextPage()
     }
-
 
     private fun setupView() {
         linearLayoutManager = LinearLayoutManager(context)
@@ -63,14 +62,11 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
             layoutManager = linearLayoutManager
             adapter = reviewListAdapter
         }
-
-
     }
 
     private fun setData(response: ArrayList<ReviewModel>) {
         reviewListAdapter.addReviews(response)
     }
-
 
     override fun onClick(position: Int, view: View) {
 
@@ -94,17 +90,14 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
                     handleUILoading()
                 }
             }
-
         })
     }
-
 
     private fun handleUILoading() {
         loading = true
         emptyView.visibility = View.GONE
         errorView.visibility = View.GONE
     }
-
 
     private fun handleUIError() {
         loading = false
@@ -114,7 +107,6 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
         emptyView.visibility = View.GONE
     }
 
-
     private fun handleUISuccess() {
         loading = false
         newQueryIsFired = false
@@ -122,7 +114,6 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
         errorView.visibility = View.GONE
         reviewList.visibility = View.VISIBLE
     }
-
 
     private fun setError(failure: Failure?) {
         failure?.let {
@@ -133,7 +124,6 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
                 is Failure.ServerError -> {
                     errorText.text = getString(R.string.failure_server_error)
                     errorImage.setImageResource(R.drawable.undraw_page_not_found_su7k)
-
                 }
                 is Failure.UnExpectedError -> {
                     errorText.text = getString(R.string.failure_unexpected_error)
@@ -142,7 +132,6 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
             }
         }
     }
-
 
     override fun getLayoutById(): Int {
         return R.layout.fragment_review_list
@@ -170,7 +159,6 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
                 }
             }
         })
-
     }
 
     private fun showReviewView(review: ReviewModel) {
@@ -182,7 +170,5 @@ class ReviewListFragment : BaseFragment(), OnClickListener {
             .replace(R.id.container, reviewDetailsFragment)
             .addToBackStack(null)
             .commit()
-
     }
-
 }

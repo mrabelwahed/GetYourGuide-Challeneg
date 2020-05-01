@@ -8,9 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.challenge.R
 import com.challenge.ui.model.ReviewModel
-import kotlinx.android.synthetic.main.item_review.view.*
 import javax.inject.Inject
-
+import kotlinx.android.synthetic.main.item_review.view.*
 
 class ReviewListAdapter @Inject constructor() :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,32 +33,21 @@ class ReviewListAdapter @Inject constructor() :
                 listener.onClick(position, it)
             }
         }
-
     }
 
-
-    //main item
+    // main item
     class ReviewViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val authorName: TextView = view.tv_author_name
         val message: TextView = view.tv_message
         val ratingBar: RatingBar = view.rb_rating
     }
 
-
     fun addReviews(list: ArrayList<ReviewModel>) {
         reviews.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    fun clearAll() {
-        reviews.clear()
         notifyDataSetChanged()
     }
 
     fun setClickListener(listener: OnClickListener) {
         this.listener = listener
     }
-
 }
-
-

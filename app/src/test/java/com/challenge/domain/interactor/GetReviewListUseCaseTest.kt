@@ -25,12 +25,11 @@ class GetReviewListUseCaseTest {
     @Mock
     lateinit var reviewRepo: ReviewRepository
 
-
     @Rule
     @JvmField
     var testSchedulerRule: RxSchedulerRule = RxSchedulerRule()
 
-    val query = QueryDTO( 0)
+    val query = QueryDTO(0)
 
     @Before
     fun setup() {
@@ -49,5 +48,4 @@ class GetReviewListUseCaseTest {
         verify(reviewRepo).getReviewList(query)
         verifyNoMoreInteractions(reviewRepo)
     }
-
 }

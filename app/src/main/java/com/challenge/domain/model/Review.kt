@@ -1,6 +1,5 @@
 package com.challenge.domain.model
 
-
 data class Review(
     val id: String,
     val authorName: String,

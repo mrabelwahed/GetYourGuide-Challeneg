@@ -2,7 +2,7 @@ package com.challenge.ui
 
 import android.os.Bundle
 import android.view.View
-import com.challenge.AppConst.keys.REVIEW_ITEM
+import com.challenge.AppConst.Keys.REVIEW_ITEM
 import com.challenge.R
 import com.challenge.ui.model.ReviewModel
 import kotlinx.android.synthetic.main.fragment_review_details.*
@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.item_review.tv_author_name
 import kotlinx.android.synthetic.main.item_review.tv_message
 
 class ReviewDetailsFragment : BaseFragment() {
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +26,5 @@ class ReviewDetailsFragment : BaseFragment() {
         it.authorCountry?.let { type -> tv_country.text = "Country : $type" }
     }
 
-
     override fun getLayoutById() = R.layout.fragment_review_details
-
 }

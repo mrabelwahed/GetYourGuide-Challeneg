@@ -2,7 +2,6 @@ package com.challenge.ui
 
 import com.challenge.R
 
-
 class MainActivity : BaseActivity() {
 
     override fun getLayoutById() = R.layout.activity_main

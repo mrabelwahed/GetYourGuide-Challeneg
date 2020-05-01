@@ -11,7 +11,7 @@ android {
         minSdkVersion Android.minSDK
         targetSdkVersion Android.targetSDK
         versionCode Android.versionCode
-        versionName  Android.versionName
+        versionName Android.versionName
         testInstrumentationRunner 'com.challenge.runner.MockRunner'
         multiDexEnabled true
     }
@@ -72,7 +72,7 @@ dependencies {
     implementation Libs.constraintLayout
     //RxJava
     implementation Libs.rxVersion
-    implementation  Libs.rxAndroid
+    implementation Libs.rxAndroid
     implementation Libs.rxAdapter
     //Retrofit
     implementation Libs.retrofit

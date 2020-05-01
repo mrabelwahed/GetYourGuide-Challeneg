@@ -1,17 +1,13 @@
 package com.challenge
 
-
-
-object AppConst{
+object AppConst {
     const val BASE_URL = "https://travelers-api.getyourguide.com/"
 
-    const val TIMEOUT_REQUEST =10L
+    const val TIMEOUT_REQUEST = 10L
 
     const val LIMIT = 20
 
-    object keys{
-        const val REVIEW_ITEM ="review_item"
+    object Keys {
+        const val REVIEW_ITEM = "review_item"
     }
-
-
 }
