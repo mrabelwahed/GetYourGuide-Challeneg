@@ -23,7 +23,7 @@ task installGitHooks(type: Exec) {
     onlyIf { isLinuxOrMacOs() }
     doLast { logger.info('Git hook installed successfully.') }
 }
-tasks.getByPath(':app:build')
+tasks.getByPath(':app:build').dependsOn installGitHooks
 //afterEvaluate
 //    // We install the hook at the first occasion
 //    tasks['clean'].dependsOn installGitHooks
